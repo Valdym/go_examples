@@ -18,6 +18,10 @@ func main() {
 
 	http.HandleFunc(apiRoot+"/users/", models.Employee)
 
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		resp := utils.Response{Resp: w}
+		resp.Text(http.StatusNotFound, "Not found", "text/plain")
+	})
 	err := http.ListenAndServe(":8080", nil)
 	utils.CheckError(err)
 }
