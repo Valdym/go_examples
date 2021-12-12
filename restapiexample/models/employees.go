@@ -47,7 +47,7 @@ func PutEmployee(w http.ResponseWriter, r *http.Request) {
 				list_employee[idx].Salary = e.Salary
 				fmt.Println(elem)
 				resp := utils.Response{Resp: w}
-				body, err := json.Marshal(list_employee)
+				body, err := json.Marshal(list_employee[idx])
 				utils.CheckError(err, w, r)
 				resp.Text(http.StatusOK, string(body), "text/json")
 				return
@@ -85,7 +85,7 @@ func Employee(w http.ResponseWriter, r *http.Request) {
 			}
 			list_employee = append(list_employee, e)
 			resp := utils.Response{Resp: w}
-			body, err := json.Marshal(list_employee)
+			body, err := json.Marshal(e)
 			utils.CheckError(err, w, r)
 			resp.Text(http.StatusCreated, string(body), "text/json")
 		}
