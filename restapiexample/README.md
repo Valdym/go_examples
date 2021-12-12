@@ -7,10 +7,11 @@ Example REST API using only standart library
 - Implementation of 7 endpoints with different HTTP Verbs
   - GET :heavy_check_mark: 
   - POST :heavy_check_mark:
-  - PUT 
+  - PUT :heavy_check_mark:
   - DELETE
 - Endpoints needs to do querying
-- Providing a scenario for testing purposes
+- Providing a scenario for testing purposes :heavy_check_mark:
+  - Created a (collection)[https://github.com/Valdym/go_examples/tree/main/restapiexample/tests/postmancollection.json] in Postman
 
 #### Notes
 - Because of the need of <id> url pattern, I need to implement regex-like matching pattern for routing.

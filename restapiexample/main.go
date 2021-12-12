@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 	"regexp"
@@ -14,7 +13,7 @@ func main() {
 	handler := &utils.RegexpHandler{}
 
 	//Welcome message get!
-	handler.HandleFunc(regexp.MustCompile("^/api/$"), homeAPI)
+	handler.HandleFunc(regexp.MustCompile("^/api/$"), models.HomeAPI)
 
 	handler.HandleFunc(regexp.MustCompile("^/api/users/$"), models.Employee)
 	fmt.Println(regexp.QuoteMeta(`/api/users/\d+$`))
@@ -31,19 +30,4 @@ func main() {
 		resp.Text(http.StatusNotFound, "Not found", "text/plain")
 	})
 	http.ListenAndServe(":8080", handler)
-}
-
-func homeAPI(w http.ResponseWriter, r *http.Request) {
-	message1 := API{WelcomeMessage: "API Home"}
-	body, err := json.Marshal(message1)
-
-	utils.CheckError(err, w, r)
-	fmt.Println(string(body))
-
-	resp := utils.Response{Resp: w}
-	resp.Text(http.StatusOK, string(body), "text/json")
-}
-
-type API struct {
-	WelcomeMessage string `json:message`
 }

@@ -13,12 +13,12 @@ import (
 var list_employee []Employees
 
 type Employees struct {
-	Id         int    `json:id`
-	FirstName  string `json:firstname`
-	LastName   string `json:lastname`
-	Department string `json:department`
-	Age        int    `json:age`
-	Salary     int    `json:salary`
+	Id         int    `json:"id"`
+	FirstName  string `json:"firstname"`
+	LastName   string `json:"lastname"`
+	Department string `json:"department"`
+	Age        int    `json:"age"`
+	Salary     int    `json:"salary"`
 }
 
 func PutEmployee(w http.ResponseWriter, r *http.Request) {
