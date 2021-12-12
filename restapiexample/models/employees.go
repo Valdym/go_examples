@@ -73,10 +73,19 @@ func Employee(w http.ResponseWriter, r *http.Request) {
 	case http.MethodPost:
 		err := json.NewDecoder(r.Body).Decode(&e)
 		utils.CheckError(err, w, r)
-		list_employee = append(list_employee, e)
-		fmt.Println(list_employee)
-		resp := utils.Response{Resp: w}
-		resp.Text(http.StatusOK, "Operation Successful! \n"+e.FirstName+" "+e.LastName+" is added to our Company!", "text/plain")
+		if err == nil {
+			for _, elem := range list_employee {
+				if elem.Id == e.Id {
+					resp := utils.Response{Resp: w}
+					resp.Text(http.StatusConflict, "User with the ID:"+strconv.Itoa(e.Id)+" already exists!", "text/plain")
+					return
+				}
+			}
+			list_employee = append(list_employee, e)
+			resp := utils.Response{Resp: w}
+			resp.Text(http.StatusOK, "Operation Successful! \n"+e.FirstName+" "+e.LastName+" is added to our Company!", "text/plain")
+		}
+
 	default:
 		resp := utils.Response{Resp: w}
 		resp.Text(http.StatusMethodNotAllowed, "Method not allowed", "text/plain")
