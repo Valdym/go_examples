@@ -87,7 +87,7 @@ func Employee(w http.ResponseWriter, r *http.Request) {
 			resp := utils.Response{Resp: w}
 			body, err := json.Marshal(list_employee)
 			utils.CheckError(err, w, r)
-			resp.Text(http.StatusOK, string(body), "text/json")
+			resp.Text(http.StatusCreated, string(body), "text/json")
 		}
 
 	default:
