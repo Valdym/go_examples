@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"regexp"
 
@@ -16,10 +15,8 @@ func main() {
 	handler.HandleFunc(regexp.MustCompile("^/api/$"), models.HomeAPI)
 
 	handler.HandleFunc(regexp.MustCompile("^/api/users/$"), models.Employee)
-	fmt.Println(regexp.QuoteMeta(`/api/users/\d+$`))
-	fmt.Println("/api/users/" + "^[0-9]+$")
-	re := regexp.MustCompile("^/api/users/[1-9]+$")
-	handler.HandleFunc(re, models.PutEmployee)
+
+	handler.HandleFunc(regexp.MustCompile("^/api/users/[1-9]+$"), models.PutEmployee)
 
 	//If above endpoints fail this should work!
 	//https://pkg.go.dev/net/http#ServeMux

@@ -47,7 +47,9 @@ func PutEmployee(w http.ResponseWriter, r *http.Request) {
 				list_employee[idx].Salary = e.Salary
 				fmt.Println(elem)
 				resp := utils.Response{Resp: w}
-				resp.Text(http.StatusOK, "Operation Successful! \n"+e.FirstName+" "+e.LastName+" attributes has been changed.", "text/plain")
+				body, err := json.Marshal(list_employee)
+				utils.CheckError(err, w, r)
+				resp.Text(http.StatusOK, string(body), "text/json")
 				return
 			}
 		}
@@ -69,7 +71,7 @@ func Employee(w http.ResponseWriter, r *http.Request) {
 		resp := utils.Response{Resp: w}
 		body, err := json.Marshal(list_employee)
 		utils.CheckError(err, w, r)
-		resp.Text(http.StatusOK, string(body), "text/plain")
+		resp.Text(http.StatusOK, string(body), "text/json")
 	case http.MethodPost:
 		err := json.NewDecoder(r.Body).Decode(&e)
 		utils.CheckError(err, w, r)
@@ -83,7 +85,9 @@ func Employee(w http.ResponseWriter, r *http.Request) {
 			}
 			list_employee = append(list_employee, e)
 			resp := utils.Response{Resp: w}
-			resp.Text(http.StatusOK, "Operation Successful! \n"+e.FirstName+" "+e.LastName+" is added to our Company!", "text/plain")
+			body, err := json.Marshal(list_employee)
+			utils.CheckError(err, w, r)
+			resp.Text(http.StatusOK, string(body), "text/json")
 		}
 
 	default:
