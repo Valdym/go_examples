@@ -100,7 +100,18 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": null
+				"url": {
+					"raw": "localhost:8080/api/users/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						""
+					]
+				}
 			},
 			"response": []
 		},
@@ -138,7 +149,18 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": null
+				"url": {
+					"raw": "localhost:8080/api/users/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						""
+					]
+				}
 			},
 			"response": []
 		}
