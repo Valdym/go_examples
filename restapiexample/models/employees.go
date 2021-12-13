@@ -34,11 +34,7 @@ func PutEmployee(w http.ResponseWriter, r *http.Request) {
 		idvaluestr := re.FindString(r.URL.Path) //get id value
 		idvalueint, _ := strconv.Atoi(idvaluestr)
 		for idx, elem := range list_employee {
-			fmt.Println(elem.Id)
-			fmt.Println(idvalueint)
 			if elem.Id == idvalueint {
-				fmt.Println(elem.Id)
-				fmt.Println(e.Id)
 				list_employee[idx].Id = e.Id
 				list_employee[idx].FirstName = e.FirstName
 				list_employee[idx].LastName = e.LastName
@@ -55,7 +51,22 @@ func PutEmployee(w http.ResponseWriter, r *http.Request) {
 		}
 		resp := utils.Response{Resp: w}
 		resp.Text(http.StatusNotFound, "There is no record with given id", "text/plain")
-
+	case http.MethodDelete:
+		re := regexp.MustCompile("[0-9]+")
+		idvaluestr := re.FindString(r.URL.Path) //get id value
+		idvalueint, _ := strconv.Atoi(idvaluestr)
+		for idx, elem := range list_employee {
+			if elem.Id == idvalueint {
+				list_employee = append(list_employee[:idx], list_employee[idx+1:]...) //Delete the member, add remaining members to list
+				resp := utils.Response{Resp: w}
+				body, err := json.Marshal(elem)
+				utils.CheckError(err, w, r)
+				resp.Text(http.StatusOK, string(body), "text/json")
+				return
+			}
+		}
+		resp := utils.Response{Resp: w}
+		resp.Text(http.StatusNotFound, "There is no record with given id", "text/plain")
 	default:
 		resp := utils.Response{Resp: w}
 		resp.Text(http.StatusMethodNotAllowed, "Method not allowed", "text/plain")
@@ -63,7 +74,6 @@ func PutEmployee(w http.ResponseWriter, r *http.Request) {
 }
 
 func Employee(w http.ResponseWriter, r *http.Request) {
-	var e Employees
 	defer r.Body.Close()
 
 	switch r.Method {
@@ -73,6 +83,7 @@ func Employee(w http.ResponseWriter, r *http.Request) {
 		utils.CheckError(err, w, r)
 		resp.Text(http.StatusOK, string(body), "text/json")
 	case http.MethodPost:
+		var e Employees
 		err := json.NewDecoder(r.Body).Decode(&e)
 		utils.CheckError(err, w, r)
 		if err == nil {
@@ -87,7 +98,7 @@ func Employee(w http.ResponseWriter, r *http.Request) {
 			resp := utils.Response{Resp: w}
 			body, err := json.Marshal(e)
 			utils.CheckError(err, w, r)
-			resp.Text(http.StatusCreated, string(body), "text/json")
+			resp.Text(http.StatusOK, string(body), "text/json")
 		}
 
 	default:

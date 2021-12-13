@@ -25,7 +25,7 @@ Example REST API using only standart library
     - GET :heavy_check_mark: 
     - POST :heavy_check_mark:
     - PUT :heavy_check_mark:
-    - DELETE
+    - DELETE :heavy_check_mark:
   - Endpoints needs to do querying(at least 4 of them)
     - > It is good to use Query Param if the number of attributes to filter is less than 3. Otherwise, instead of using Query Params, it better to create a JSON payload with all the filter attributes and create a POST method.
       - ?department=x to get request
