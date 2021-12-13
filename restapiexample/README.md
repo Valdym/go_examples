@@ -34,11 +34,14 @@ Example REST API using only standart library
       - ?department=x to delete request(delete a department with all of employees in it)
   - Providing a scenario for testing purposes :heavy_check_mark:
     - Created a (collection)[https://github.com/Valdym/go_examples/tree/main/restapiexample/tests/postmancollection.json] in Postman
-#### 1.1.1. Notes
+#### 1.1.1. Development Notes/Things to learned
 - Because of the need of <id> url pattern, I need to implement regex-like matching pattern for routing.
+  - > Regexp Handler object created and now handlerfunc first argument accepts regex string!
 - How to check what to run for incoming request?
+  - > r.METHOD == "GET"
 - When looping through arrays using range, it copies the elem so original one stays untouched! 
   - >So the only thing you can do is to either use pointers or the index, as already proposed by jnml and (peterSO)[https://stackoverflow.com/questions/15945030/change-values-while-iterating].
+- Version 2 now returns only changed objects(POST requests) as a API Response this is the best practice I should follow!
 
 ## 2. HTTP Codes
 
