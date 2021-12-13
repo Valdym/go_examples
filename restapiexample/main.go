@@ -15,6 +15,7 @@ func main() {
 	router.HandleFunc(("/api/"), models.HomeAPI) // Home API
 
 	router.HandleFunc("/api/users/", models.Employee) //Get All Users!
+	router.HandleFunc("/api/users/", models.Employee).Queries("name")
 
 	router.HandleFunc("/api/users/{id:[0-9]+}", models.PutEmployee) //post,get,delete requests will come here
 

@@ -8,6 +8,7 @@ import (
 	"strconv"
 
 	"github.com/Valdym/go_examples/restapiexample/utils"
+	"github.com/gorilla/mux"
 )
 
 var list_employee []Employees
@@ -78,10 +79,33 @@ func Employee(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method {
 	case http.MethodGet:
-		resp := utils.Response{Resp: w}
-		body, err := json.Marshal(list_employee)
-		utils.CheckError(err, w, r)
-		resp.Text(http.StatusOK, string(body), "text/json")
+		name, found := mux.Vars(r)["id"] //Checking if any query params exists
+		if found {
+			var finalArray []Employees
+			counter := 0
+			for _, elem := range list_employee {
+				if elem.FirstName == name {
+					finalArray = append(finalArray, elem)
+					counter++
+				}
+			}
+			if counter > 0 {
+				resp := utils.Response{Resp: w}
+				body, err := json.Marshal(finalArray)
+				utils.CheckError(err, w, r)
+				resp.Text(http.StatusOK, string(body), "text/json")
+			} else {
+				resp := utils.Response{Resp: w}
+				resp.Text(http.StatusNoContent, "No Content", "text/plain")
+			}
+
+		} else {
+			resp := utils.Response{Resp: w}
+			body, err := json.Marshal(list_employee)
+			utils.CheckError(err, w, r)
+			resp.Text(http.StatusOK, string(body), "text/json")
+		}
+
 	case http.MethodPost:
 		var e Employees
 		err := json.NewDecoder(r.Body).Decode(&e)
