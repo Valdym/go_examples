@@ -28,10 +28,8 @@ Example REST API using only standart library
     - DELETE :heavy_check_mark:
   - Endpoints needs to do querying(at least 4 of them)
     - > It is good to use Query Param if the number of attributes to filter is less than 3. Otherwise, instead of using Query Params, it better to create a JSON payload with all the filter attributes and create a POST method.
+      - ?name=x to get request :heavy_check_mark:
       - ?department=x to get request
-      - ?age=x to delete request
-      - ?firstname=x to post request(change all okans to çöp)
-      - ?department=x to delete request(delete a department with all of employees in it)
   - Providing a scenario for testing purposes :heavy_check_mark:
     - Created a (collection)[https://github.com/Valdym/go_examples/tree/main/restapiexample/tests/postmancollection.json] in Postman
 #### 1.1.1. Development Notes/Things to learned
